@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">My finale</string>
+    <string name="app_name">VoteSafe</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Autentificare</string>
+
+    <!-- Strings related to login -->
+    <string name="cnp_hint">CNP</string>
+    <string name="action_sign_in">Autentificare</string>
+    <string name="title_main_activity">Alege categoria de vot</string>
 </resources>

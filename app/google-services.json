@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "606991854577",
+    "firebase_url": "https://final-work-for-master.firebaseio.com",
+    "project_id": "final-work-for-master",
+    "storage_bucket": "final-work-for-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606991854577:android:b059d0e2fbe5914c",
+        "android_client_info": {
+          "package_name": "finalproject.silviupal.ro.myfinale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606991854577-vi9h7ngq4m7od94dcjec7bt4nkk7o3d7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "finalproject.silviupal.ro.myfinale",
+            "certificate_hash": "f8a957aa84047659cedd0621d32f218744b01798"
+          }
+        },
+        {
+          "client_id": "606991854577-io5pa2r9op46srlv9g5kjeaafbu7df66.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "606991854577-io5pa2r9op46srlv9g5kjeaafbu7df66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiLR_EeUnNJJav7t7NeIx6GWArckftaG0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606991854577-io5pa2r9op46srlv9g5kjeaafbu7df66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
