@@ -1,5 +1,6 @@
-package finalproject.silviupal.ro.myfinale.main;
+package finalproject.silviupal.ro.myfinale.subcategories;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import finalproject.silviupal.ro.myfinale.R;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
+import finalproject.silviupal.ro.myfinale.model.Subcategory;
 
 /**
  * Created by Silviu Pal on 6/6/2018.
@@ -20,12 +22,13 @@ import finalproject.silviupal.ro.myfinale.model.MainCategory;
 
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
     private final ItemClickListener listener;
-    private List<MainCategory> list;
+    private List<Subcategory> list;
 
     public RvAdapter(ItemClickListener listener) {
         this.listener = listener;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext())
@@ -35,7 +38,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(getItemAtPosition(position));
+        holder.bind(getItemAtPosition(position), listener);
     }
 
     @Override
@@ -43,12 +46,12 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
         return list != null ? list.size() : 0;
     }
 
-    public void setList(List<MainCategory> list) {
+    public void setList(List<Subcategory> list) {
         this.list = list;
         notifyDataSetChanged();
     }
 
-    private MainCategory getItemAtPosition(int position) {
+    private Subcategory getItemAtPosition(int position) {
         return list.get(position);
     }
 
@@ -63,7 +66,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final MainCategory item) {
+        public void bind(final Subcategory item, final ItemClickListener listener) {
             tvTitle.setText(item.getName());
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -3,6 +3,8 @@ package finalproject.silviupal.ro.myfinale.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by Silviu Pal on 6/6/2018.
  */
@@ -12,6 +14,8 @@ public class MainCategory implements Parcelable {
     private long id;
 
     private String name;
+
+    private List<Subcategory> subcategories;
 
     public MainCategory() {
     }
@@ -24,22 +28,7 @@ public class MainCategory implements Parcelable {
     protected MainCategory(Parcel in) {
         id = in.readLong();
         name = in.readString();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        subcategories = in.createTypedArrayList(Subcategory.CREATOR);
     }
 
     public static final Creator<MainCategory> CREATOR = new Creator<MainCategory>() {
@@ -63,5 +52,30 @@ public class MainCategory implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(name);
+        dest.writeTypedList(subcategories);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
     }
 }

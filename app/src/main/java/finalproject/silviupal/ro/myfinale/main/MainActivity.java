@@ -1,5 +1,6 @@
 package finalproject.silviupal.ro.myfinale.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,12 +19,14 @@ import java.util.Map;
 
 import butterknife.BindView;
 import finalproject.silviupal.ro.myfinale.FirebaseController;
+import finalproject.silviupal.ro.myfinale.Keys;
 import finalproject.silviupal.ro.myfinale.R;
 import finalproject.silviupal.ro.myfinale.base.BaseActivity;
 import finalproject.silviupal.ro.myfinale.helper.MainActivityHelper;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
+import finalproject.silviupal.ro.myfinale.subcategories.SubcategoriesActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ItemClickListener {
 
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
@@ -73,8 +76,16 @@ public class MainActivity extends BaseActivity {
 
         recyclerView.setLayoutManager(manager);
 
-        adapter = new RvAdapter();
+        adapter = new RvAdapter(this);
         recyclerView.setAdapter(adapter);
+
         FirebaseController.getInstance().getMainCategories(valueEventListener);
+    }
+
+    @Override
+    public void onItemClickListener(MainCategory item) {
+        Intent intent = new Intent(this, SubcategoriesActivity.class);
+        intent.putExtra(Keys.KEY_CATEGORY, item);
+        startActivity(intent);
     }
 }

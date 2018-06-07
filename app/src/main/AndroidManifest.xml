@@ -30,6 +30,9 @@
             android:name=".main.MainActivity"
             android:label="@string/title_main_activity" />
 
+        <activity android:name=".subcategories.SubcategoriesActivity" />
+
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ef0746e98e7c9f069472ca3058f52e44af562014" />
