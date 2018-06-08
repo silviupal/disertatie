@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_huge"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:layout_margin="@dimen/margin_huge"
     tools:context="finalproject.silviupal.ro.myfinale.LoginActivity">
 
     <!-- Login progress -->
@@ -46,6 +46,13 @@
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/error_cnp"
+            android:textColor="@android:color/holo_red_light" />
 
         <Button
             android:id="@+id/btn_sign_in"

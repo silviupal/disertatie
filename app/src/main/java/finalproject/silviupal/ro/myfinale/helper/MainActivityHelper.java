@@ -3,6 +3,7 @@ package finalproject.silviupal.ro.myfinale.helper;
 import java.util.ArrayList;
 import java.util.List;
 
+import finalproject.silviupal.ro.myfinale.data.UserProfile;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
 
 /**

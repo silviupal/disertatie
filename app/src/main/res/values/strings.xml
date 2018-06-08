@@ -7,4 +7,5 @@
     <string name="cnp_hint">CNP</string>
     <string name="action_sign_in">Autentificare</string>
     <string name="title_main_activity">Alege categoria de vot</string>
+    <string name="error_cnp">Introduceti un CNP valid</string>
 </resources>
