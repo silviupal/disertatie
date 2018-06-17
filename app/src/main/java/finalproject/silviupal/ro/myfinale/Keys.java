@@ -6,4 +6,5 @@ package finalproject.silviupal.ro.myfinale;
 
 public class Keys {
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
+    public static final String KEY_EXTRA_USER = "KEY_EXTRA_USER";
 }

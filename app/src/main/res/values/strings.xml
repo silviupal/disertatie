@@ -4,8 +4,16 @@
     <string name="title_activity_login">Autentificare</string>
 
     <!-- Strings related to login -->
-    <string name="cnp_hint">CNP</string>
+    <string name="email_hint">Email</string>
     <string name="action_sign_in">Autentificare</string>
     <string name="title_main_activity">Alege categoria de vot</string>
-    <string name="error_cnp">Introduceti un CNP valid</string>
+    <string name="error_form">Introduceti informatii valide</string>
+    <string name="password_hint">Parola</string>
+    <string name="logout">Iesire</string>
+    <string name="logged_in_user_label">Utilizator autentificat</string>
+    <string name="ok_label">Ok</string>
+    <string name="under_construction">In constructie</string>
+    <string name="my_profile">Profilul meu</string>
+    <string name="my_votes">Voturile mele</string>
+    <string name="vote">Voteaza</string>
 </resources>

@@ -39,5 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         toolbarTitle.setText(toolbarTitleText);
+        getSupportActionBar().setHomeButtonEnabled(setHasOptionsMenu);
+
     }
 }

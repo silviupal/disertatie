@@ -1,5 +1,7 @@
 package finalproject.silviupal.ro.myfinale.data;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import finalproject.silviupal.ro.myfinale.model.User;
 
 /**
@@ -10,7 +12,7 @@ public class UserProfile {
 
     private static UserProfile instance;
 
-    private User user;
+    private FirebaseUser user;
 
     private UserProfile() {
     }
@@ -23,11 +25,11 @@ public class UserProfile {
         return instance;
     }
 
-    public User getUser() {
+    public FirebaseUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(FirebaseUser user) {
         this.user = user;
     }
 }

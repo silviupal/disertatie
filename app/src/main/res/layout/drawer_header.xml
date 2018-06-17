@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/drawer_header_height"
+    android:background="@drawable/drawer_header_background"
+    android:padding="@dimen/padding_default">
+
+    <TextView
+        android:id="@+id/drawer_email_label_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/drawer_email_tv"
+        android:layout_marginTop="@dimen/margin_large"
+        android:text="@string/logged_in_user_label"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_default" />
+
+    <TextView
+        android:id="@+id/drawer_email_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_large"
+        tools:text="silviu@gmail.com" />
+
+
+</RelativeLayout>
