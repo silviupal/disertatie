@@ -1,4 +1,4 @@
-package finalproject.silviupal.ro.myfinale.main;
+package finalproject.silviupal.ro.myfinale.maincategories;
 
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
 

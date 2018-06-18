@@ -1,4 +1,4 @@
-package finalproject.silviupal.ro.myfinale.main;
+package finalproject.silviupal.ro.myfinale.maincategories;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

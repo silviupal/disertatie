@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -55,7 +56,18 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
         return list.get(position);
     }
 
+    public Subcategory getSelectedSubcategory() {
+        for (Subcategory subcategory : list) {
+            if (subcategory.isSelected()) {
+                return subcategory;
+            }
+        }
+        return null;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.relative_category_wrapper)
+        RelativeLayout rlWrapper;
         @BindView(R.id.iv_logo)
         ImageView ivLogo;
         @BindView(R.id.tv_title)
@@ -68,11 +80,12 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
 
         public void bind(final Subcategory item, final ItemClickListener listener) {
             tvTitle.setText(item.getName());
+            rlWrapper.setEnabled(!item.isSelected());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClickListener(item);
+                    listener.onItemClickListener(item, list);
                 }
             });
         }

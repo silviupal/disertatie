@@ -16,4 +16,6 @@
     <string name="my_profile">Profilul meu</string>
     <string name="my_votes">Voturile mele</string>
     <string name="vote">Voteaza</string>
+    <string name="dialog_info_title">Informatie</string>
+    <string name="dialog_select_one_subcategory">Trebuie sa selectezi o categorie pentru a putea finaliza votul la aceasta categorie.</string>
 </resources>

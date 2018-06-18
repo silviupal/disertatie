@@ -5,34 +5,25 @@ package finalproject.silviupal.ro.myfinale.model;
  */
 
 public class Vote {
-    long id;
-    String category;
-    String subcategory;
+    long categoryId;
+    long subcategoryId;
 
     public Vote() {
     }
 
-    public long getId() {
-        return id;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getCategory() {
-        return category;
+    public long getSubcategoryId() {
+        return subcategoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSubcategory() {
-        return subcategory;
-    }
-
-    public void setSubcategory(String subcategory) {
-        this.subcategory = subcategory;
+    public void setSubcategoryId(long subcategoryId) {
+        this.subcategoryId = subcategoryId;
     }
 }

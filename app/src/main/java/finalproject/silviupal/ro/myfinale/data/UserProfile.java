@@ -32,4 +32,8 @@ public class UserProfile {
     public void setUser(FirebaseUser user) {
         this.user = user;
     }
+
+    public String getUserId() {
+        return user.getUid();
+    }
 }

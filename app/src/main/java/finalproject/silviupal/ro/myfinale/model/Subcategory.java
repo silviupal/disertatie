@@ -11,9 +11,28 @@ public class Subcategory implements Parcelable {
 
     long id;
     String name;
+    boolean isSelected = false;
 
     public Subcategory() {
     }
+
+    protected Subcategory(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        isSelected = in.readByte() != 0;
+    }
+
+    public static final Creator<Subcategory> CREATOR = new Creator<Subcategory>() {
+        @Override
+        public Subcategory createFromParcel(Parcel in) {
+            return new Subcategory(in);
+        }
+
+        @Override
+        public Subcategory[] newArray(int size) {
+            return new Subcategory[size];
+        }
+    };
 
     public long getId() {
         return id;
@@ -31,22 +50,14 @@ public class Subcategory implements Parcelable {
         this.name = name;
     }
 
-    protected Subcategory(Parcel in) {
-        id = in.readLong();
-        name = in.readString();
+    public boolean isSelected() {
+        return isSelected;
     }
 
-    public static final Creator<Subcategory> CREATOR = new Creator<Subcategory>() {
-        @Override
-        public Subcategory createFromParcel(Parcel in) {
-            return new Subcategory(in);
-        }
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
-        @Override
-        public Subcategory[] newArray(int size) {
-            return new Subcategory[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -57,5 +68,6 @@ public class Subcategory implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(name);
+        dest.writeByte((byte) (isSelected ? 1 : 0));
     }
 }

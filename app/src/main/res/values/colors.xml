@@ -14,6 +14,8 @@
 
     <color name="light_gray_01">#f7f7f7</color>
 
+    <color name="disabled_color">#FFCCCCCC</color>
+
     <color name="drawer_header_background">#5aafff</color>
 
     <drawable name="hamburger">@color/light_gray_01</drawable>

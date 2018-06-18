@@ -1,6 +1,5 @@
-package finalproject.silviupal.ro.myfinale.main;
+package finalproject.silviupal.ro.myfinale.maincategories;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -24,6 +23,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import finalproject.silviupal.ro.myfinale.FirebaseController;
 import finalproject.silviupal.ro.myfinale.Keys;
+import finalproject.silviupal.ro.myfinale.LoginActivity;
 import finalproject.silviupal.ro.myfinale.R;
 import finalproject.silviupal.ro.myfinale.base.BaseActivity;
 import finalproject.silviupal.ro.myfinale.data.UserProfile;
@@ -31,7 +31,7 @@ import finalproject.silviupal.ro.myfinale.helper.DialogHelper;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
 import finalproject.silviupal.ro.myfinale.subcategories.SubcategoriesActivity;
 
-public class MainActivity extends BaseActivity implements ItemClickListener {
+public class MainCategories extends BaseActivity implements ItemClickListener {
 
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
@@ -140,6 +140,8 @@ public class MainActivity extends BaseActivity implements ItemClickListener {
 
     @OnClick(R.id.logout_layout)
     public void handleLogout() {
-        DialogHelper.showUnderConstructionDialog(this);
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

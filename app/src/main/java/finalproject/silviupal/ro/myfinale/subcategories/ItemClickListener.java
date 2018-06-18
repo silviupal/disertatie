@@ -1,6 +1,7 @@
 package finalproject.silviupal.ro.myfinale.subcategories;
 
-import finalproject.silviupal.ro.myfinale.model.MainCategory;
+import java.util.List;
+
 import finalproject.silviupal.ro.myfinale.model.Subcategory;
 
 /**
@@ -8,5 +9,5 @@ import finalproject.silviupal.ro.myfinale.model.Subcategory;
  */
 
 public interface ItemClickListener {
-    void onItemClickListener(Subcategory item);
+    void onItemClickListener(Subcategory item, List<Subcategory> list);
 }
