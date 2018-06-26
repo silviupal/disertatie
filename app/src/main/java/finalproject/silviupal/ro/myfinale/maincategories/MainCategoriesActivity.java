@@ -28,8 +28,10 @@ import finalproject.silviupal.ro.myfinale.Keys;
 import finalproject.silviupal.ro.myfinale.LoginActivity;
 import finalproject.silviupal.ro.myfinale.R;
 import finalproject.silviupal.ro.myfinale.base.BaseActivity;
+import finalproject.silviupal.ro.myfinale.crypt.CryptoTime;
 import finalproject.silviupal.ro.myfinale.data.UserProfile;
 import finalproject.silviupal.ro.myfinale.helper.DialogHelper;
+import finalproject.silviupal.ro.myfinale.model.CryptoVote;
 import finalproject.silviupal.ro.myfinale.model.KeyModel;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
 import finalproject.silviupal.ro.myfinale.model.User;
@@ -102,7 +104,11 @@ public class MainCategoriesActivity extends BaseActivity implements ItemClickLis
             List<Vote> votes = new ArrayList<>();
 
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                votes.add(snapshot.getValue(Vote.class));
+                CryptoVote cryptoVote = snapshot.getValue(CryptoVote.class);
+                if (cryptoVote != null) {
+                    votes.add(new Vote(CryptoTime.getInstance().decrypt(cryptoVote.getCategoryId()),
+                            CryptoTime.getInstance().decrypt(cryptoVote.getSubcategoryId())));
+                }
             }
 
             UserProfile.getInstance().setVoteList(votes);

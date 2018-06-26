@@ -10,7 +10,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import finalproject.silviupal.ro.myfinale.crypt.CryptoTime;
 import finalproject.silviupal.ro.myfinale.data.UserProfile;
+import finalproject.silviupal.ro.myfinale.model.CryptoVote;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
 import finalproject.silviupal.ro.myfinale.model.Subcategory;
 import finalproject.silviupal.ro.myfinale.model.User;
@@ -67,7 +69,12 @@ public class FirebaseController {
 
     public void addVoteForUser(Vote vote) {
         DatabaseReference dbRef = firebaseDatabase.getReference(USERS);
-        dbRef.child(UserProfile.getInstance().getUserId()).child("votes").push().setValue(vote);
+
+        CryptoVote cryptoVote = new CryptoVote(
+                CryptoTime.getInstance().encrypt(String.valueOf(vote.getCategoryId())),
+                CryptoTime.getInstance().encrypt(String.valueOf(vote.getSubcategoryId())));
+
+        dbRef.child(UserProfile.getInstance().getUserId()).child("votes").push().setValue(cryptoVote);
     }
 
     public void getVotes(ValueEventListener listener) {

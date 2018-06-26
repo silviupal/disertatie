@@ -11,6 +11,11 @@ public class Vote {
     public Vote() {
     }
 
+    public Vote(long categoryId, long subcategoryId) {
+        this.categoryId = categoryId;
+        this.subcategoryId = subcategoryId;
+    }
+
     public long getCategoryId() {
         return categoryId;
     }
