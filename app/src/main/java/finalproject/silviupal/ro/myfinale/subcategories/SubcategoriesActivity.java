@@ -6,17 +6,21 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import finalproject.silviupal.ro.myfinale.FirebaseController;
 import finalproject.silviupal.ro.myfinale.Keys;
 import finalproject.silviupal.ro.myfinale.R;
 import finalproject.silviupal.ro.myfinale.base.BaseActivity;
+import finalproject.silviupal.ro.myfinale.data.UserProfile;
 import finalproject.silviupal.ro.myfinale.helper.DialogHelper;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
 import finalproject.silviupal.ro.myfinale.model.Subcategory;
@@ -37,9 +41,15 @@ public class SubcategoriesActivity extends BaseActivity implements ItemClickList
     @BindView(R.id.rv_main_categories)
     RecyclerView recyclerView;
 
-    RvAdapter adapter;
+    @BindView(R.id.btn_vote)
+    Button btnVote;
 
-    MainCategory mCategory = new MainCategory();
+    @BindView(R.id.tv_info)
+    TextView tvInfo;
+
+    private RvAdapter adapter;
+
+    private MainCategory mCategory = new MainCategory();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +63,7 @@ public class SubcategoriesActivity extends BaseActivity implements ItemClickList
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initRecyclerView();
+        checkIfIsAlreadyVoted();
     }
 
     @Override
@@ -91,9 +102,6 @@ public class SubcategoriesActivity extends BaseActivity implements ItemClickList
     }
 
     private void initRecyclerView() {
-
-        // TODO: 6/18/2018 Check if this category has been voted by this user
-
         GridLayoutManager manager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(manager);
         adapter = new RvAdapter(this);
@@ -101,7 +109,41 @@ public class SubcategoriesActivity extends BaseActivity implements ItemClickList
         adapter.setList(mCategory.getSubcategories());
     }
 
-    @OnClick(R.id.vote_btn)
+    private void checkIfIsAlreadyVoted() {
+        if (UserProfile.getInstance().getVoteList().size() == 0) {
+            return;
+        }
+
+        for (Vote vote : UserProfile.getInstance().getVoteList()) {
+            if (vote.getCategoryId() == mCategory.getId()) {
+                handleCategoryAlreadyVoted(vote);
+            }
+        }
+    }
+
+    private void handleCategoryAlreadyVoted(Vote vote) {
+        Subcategory selectedSubcategory = null;
+
+        for (Subcategory subcategory : mCategory.getSubcategories()) {
+            if (subcategory.getId() != vote.getSubcategoryId()) {
+                continue;
+            }
+            selectedSubcategory = subcategory;
+        }
+
+        if (selectedSubcategory != null) {
+            selectedSubcategory.setSelected(true);
+
+            adapter.setAlreadySelected(true);
+
+            onItemClickListener(selectedSubcategory, mCategory.getSubcategories());
+
+            btnVote.setVisibility(View.GONE);
+            tvInfo.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.btn_vote)
     public void handleVote() {
         Subcategory selectedSubcategory = adapter.getSelectedSubcategory();
         if (selectedSubcategory == null) {

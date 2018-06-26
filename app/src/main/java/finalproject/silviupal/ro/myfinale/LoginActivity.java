@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import finalproject.silviupal.ro.myfinale.data.UserProfile;
-import finalproject.silviupal.ro.myfinale.maincategories.MainCategories;
+import finalproject.silviupal.ro.myfinale.maincategories.MainCategoriesActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -56,16 +55,10 @@ public class LoginActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        /*FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);*/
-    }
-
     @OnClick(R.id.btn_sign_in)
     public void login() {
+        hideError();
+        showProgress();
         if (isValid()) {
             String email = emailEt.getText().toString();
             String password = passwordEt.getText().toString();
@@ -77,17 +70,16 @@ public class LoginActivity extends Activity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 updateUI(user);
                             } else {
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                updateUI(null);
+                                hideProgress();
+                                showError();
                             }
                         }
                     })
                     .addOnFailureListener(this, new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            hideProgress();
+                            showError();
                         }
                     });
 
@@ -100,14 +92,22 @@ public class LoginActivity extends Activity {
     }
 
     private void updateUI(FirebaseUser currentUser) {
+        hideProgress();
         if (currentUser != null) {
             UserProfile.getInstance().setUser(currentUser);
-            Intent intent = new Intent(this, MainCategories.class);
+            Intent intent = new Intent(this, MainCategoriesActivity.class);
             startActivity(intent);
             finish();
         }
     }
 
+    private void showProgress() {
+        loginProgress.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+        loginProgress.setVisibility(View.GONE);
+    }
 
     private void hideError() {
         error.setVisibility(View.GONE);

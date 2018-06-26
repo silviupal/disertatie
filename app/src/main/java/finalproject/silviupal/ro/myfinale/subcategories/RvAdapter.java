@@ -14,7 +14,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import finalproject.silviupal.ro.myfinale.R;
-import finalproject.silviupal.ro.myfinale.model.MainCategory;
 import finalproject.silviupal.ro.myfinale.model.Subcategory;
 
 /**
@@ -23,7 +22,10 @@ import finalproject.silviupal.ro.myfinale.model.Subcategory;
 
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
     private final ItemClickListener listener;
+
     private List<Subcategory> list;
+
+    private boolean isAlreadySelected = false;
 
     public RvAdapter(ItemClickListener listener) {
         this.listener = listener;
@@ -50,6 +52,10 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
     public void setList(List<Subcategory> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    public void setAlreadySelected(boolean alreadySelected) {
+        this.isAlreadySelected = alreadySelected;
     }
 
     private Subcategory getItemAtPosition(int position) {
@@ -81,6 +87,8 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
         public void bind(final Subcategory item, final ItemClickListener listener) {
             tvTitle.setText(item.getName());
             rlWrapper.setEnabled(!item.isSelected());
+
+            itemView.setEnabled(!isAlreadySelected);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

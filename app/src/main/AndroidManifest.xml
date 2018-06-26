@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".maincategories.MainCategories"
+            android:name=".maincategories.MainCategoriesActivity"
             android:label="@string/title_main_activity" />
 
         <activity android:name=".subcategories.SubcategoriesActivity" />

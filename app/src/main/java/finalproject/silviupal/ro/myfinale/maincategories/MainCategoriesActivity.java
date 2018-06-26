@@ -2,6 +2,7 @@ package finalproject.silviupal.ro.myfinale.maincategories;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,10 +30,13 @@ import finalproject.silviupal.ro.myfinale.R;
 import finalproject.silviupal.ro.myfinale.base.BaseActivity;
 import finalproject.silviupal.ro.myfinale.data.UserProfile;
 import finalproject.silviupal.ro.myfinale.helper.DialogHelper;
+import finalproject.silviupal.ro.myfinale.model.KeyModel;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
+import finalproject.silviupal.ro.myfinale.model.User;
+import finalproject.silviupal.ro.myfinale.model.Vote;
 import finalproject.silviupal.ro.myfinale.subcategories.SubcategoriesActivity;
 
-public class MainCategories extends BaseActivity implements ItemClickListener {
+public class MainCategoriesActivity extends BaseActivity implements ItemClickListener {
 
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
@@ -51,7 +56,7 @@ public class MainCategories extends BaseActivity implements ItemClickListener {
     RvAdapter adapter;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private ValueEventListener valueEventListener = new ValueEventListener() {
+    private ValueEventListener getMainCategoriesListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             List<MainCategory> mainCategories = new ArrayList<>();
@@ -65,13 +70,56 @@ public class MainCategories extends BaseActivity implements ItemClickListener {
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
+            Toast.makeText(MainCategoriesActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    };
 
+    private ValueEventListener getKeyListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                KeyModel keyModel = snapshot.getValue(KeyModel.class);
+                if (keyModel != null && UserProfile.getInstance().getUserId().equals(keyModel.getUid())) {
+                    UserProfile.getInstance().setKey(keyModel.getKey());
+                    return;
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Toast.makeText(MainCategoriesActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private ValueEventListener getVotesListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (dataSnapshot.getValue() == null) {
+                return;
+            }
+
+            List<Vote> votes = new ArrayList<>();
+
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                votes.add(snapshot.getValue(Vote.class));
+            }
+
+            UserProfile.getInstance().setVoteList(votes);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Toast.makeText(MainCategoriesActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
         }
     };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseController.getInstance().getKey(getKeyListener);
+        FirebaseController.getInstance().getVotes(getVotesListener);
 
         initToolbar();
         initNavigationView();
@@ -100,7 +148,7 @@ public class MainCategories extends BaseActivity implements ItemClickListener {
         recyclerView.setLayoutManager(manager);
         adapter = new RvAdapter(this);
         recyclerView.setAdapter(adapter);
-        FirebaseController.getInstance().getMainCategories(valueEventListener);
+        FirebaseController.getInstance().getMainCategories(getMainCategoriesListener);
     }
 
     private void initUserDetails() {
