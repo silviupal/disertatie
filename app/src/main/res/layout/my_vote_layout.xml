@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/padding_default"
+    android:paddingStart="@dimen/padding_default"
+    android:paddingTop="@dimen/padding_default"
+    android:weightSum="6">
+
+    <TextView
+        android:id="@+id/tv_item_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_large"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/tv_category_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_large"
+        tools:text="Categoria 1" />
+
+    <TextView
+        android:id="@+id/tv_subcategory_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_large"
+        tools:text="Subcategoria 1-2" />
+
+</LinearLayout>

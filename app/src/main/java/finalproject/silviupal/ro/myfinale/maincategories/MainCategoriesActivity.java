@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.AdapterViewAnimator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ import finalproject.silviupal.ro.myfinale.model.KeyModel;
 import finalproject.silviupal.ro.myfinale.model.MainCategory;
 import finalproject.silviupal.ro.myfinale.model.User;
 import finalproject.silviupal.ro.myfinale.model.Vote;
+import finalproject.silviupal.ro.myfinale.myvotes.MyVotesActivity;
 import finalproject.silviupal.ro.myfinale.subcategories.SubcategoriesActivity;
 
 public class MainCategoriesActivity extends BaseActivity implements ItemClickListener {
@@ -211,7 +213,11 @@ public class MainCategoriesActivity extends BaseActivity implements ItemClickLis
 
     @OnClick(R.id.my_votes_layout)
     public void handleMyVotes() {
-        DialogHelper.showUnderConstructionDialog(this);
+        //DialogHelper.showUnderConstructionDialog(this);
+
+        Intent intent = new Intent(this, MyVotesActivity.class);
+        intent.putParcelableArrayListExtra(Keys.KEY_EXTRA_CATEGORIES, new ArrayList<>(adapter.getList()));
+        startActivity(intent);
     }
 
     @OnClick(R.id.logout_layout)

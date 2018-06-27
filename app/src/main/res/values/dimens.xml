@@ -9,6 +9,7 @@
     <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_huge">32dp</dimen>
 
+    <dimen name="padding_small">4dp</dimen>
     <dimen name="padding_default">8dp</dimen>
     <dimen name="padding_huge">32dp</dimen>
 
