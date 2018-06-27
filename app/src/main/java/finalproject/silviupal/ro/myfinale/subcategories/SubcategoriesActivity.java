@@ -10,8 +10,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -155,7 +164,11 @@ public class SubcategoriesActivity extends BaseActivity implements ItemClickList
         vote.setCategoryId(mCategory.getId());
         vote.setSubcategoryId(selectedSubcategory.getId());
 
-        FirebaseController.getInstance().addVoteForUser(vote);
+        try {
+            FirebaseController.getInstance().addVoteForUser(vote);
+        } catch (NoSuchPaddingException | UnsupportedEncodingException | IllegalBlockSizeException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | InvalidKeySpecException | InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
 
         finish();
     }

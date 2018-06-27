@@ -7,8 +7,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import finalproject.silviupal.ro.myfinale.crypt.CryptoTime;
 import finalproject.silviupal.ro.myfinale.data.UserProfile;
@@ -67,20 +76,23 @@ public class FirebaseController {
     }
 */
 
-    public void addVoteForUser(Vote vote) {
+    public void addVoteForUser(Vote vote) throws NoSuchPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException, InvalidAlgorithmParameterException {
         DatabaseReference dbRef = firebaseDatabase.getReference(USERS);
 
-        CryptoVote cryptoVote = new CryptoVote(
-                CryptoTime.getInstance().encrypt(String.valueOf(vote.getCategoryId())),
-                CryptoTime.getInstance().encrypt(String.valueOf(vote.getSubcategoryId())));
+        String categoryId = CryptoTime.getInstance().encrypt(String.valueOf(vote.getCategoryId()));
+        String subcategoryId = CryptoTime.getInstance().encrypt(String.valueOf(vote.getSubcategoryId()));
+
+        CryptoVote cryptoVote = new CryptoVote(categoryId, subcategoryId);
 
         dbRef.child(UserProfile.getInstance().getUserId()).child("votes").push().setValue(cryptoVote);
     }
 
     public void getVotes(ValueEventListener listener) {
-        DatabaseReference dbRef = firebaseDatabase.getReference(
-                String.format(USERS_VOTES, UserProfile.getInstance().getUserId()));
-        dbRef.addValueEventListener(listener);
+        if (UserProfile.getInstance().getUserId() != null) {
+            DatabaseReference dbRef = firebaseDatabase.getReference(
+                    String.format(USERS_VOTES, UserProfile.getInstance().getUserId()));
+            dbRef.addValueEventListener(listener);
+        }
     }
 
     public void getKey(ValueEventListener listener) {

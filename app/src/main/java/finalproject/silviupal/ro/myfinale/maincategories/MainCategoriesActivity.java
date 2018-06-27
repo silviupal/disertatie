@@ -2,6 +2,7 @@ package finalproject.silviupal.ro.myfinale.maincategories;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +19,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -106,8 +117,13 @@ public class MainCategoriesActivity extends BaseActivity implements ItemClickLis
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 CryptoVote cryptoVote = snapshot.getValue(CryptoVote.class);
                 if (cryptoVote != null) {
-                    votes.add(new Vote(CryptoTime.getInstance().decrypt(cryptoVote.getCategoryId()),
-                            CryptoTime.getInstance().decrypt(cryptoVote.getSubcategoryId())));
+                    try {
+                        votes.add(new Vote(
+                                Integer.parseInt(CryptoTime.getInstance().decrypt(cryptoVote.getCategoryId())),
+                                Integer.parseInt(CryptoTime.getInstance().decrypt(cryptoVote.getSubcategoryId()))));
+                    } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException | InvalidKeySpecException | IOException | InvalidAlgorithmParameterException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -125,7 +141,13 @@ public class MainCategoriesActivity extends BaseActivity implements ItemClickLis
         super.onCreate(savedInstanceState);
 
         FirebaseController.getInstance().getKey(getKeyListener);
-        FirebaseController.getInstance().getVotes(getVotesListener);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FirebaseController.getInstance().getVotes(getVotesListener);
+            }
+        }, 2000);
 
         initToolbar();
         initNavigationView();

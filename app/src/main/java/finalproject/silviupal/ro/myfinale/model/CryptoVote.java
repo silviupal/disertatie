@@ -3,15 +3,18 @@ package finalproject.silviupal.ro.myfinale.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
+import finalproject.silviupal.ro.myfinale.crypt.CryptoTime;
+
 /**
  * Created by Silviu Pal on 6/26/2018.
  */
 public class CryptoVote implements Parcelable {
-    String categoryId;
-    String subcategoryId;
+    private String categoryId;
+    private String subcategoryId;
 
     public CryptoVote() {
-
     }
 
     public CryptoVote(String categoryId, String subcategoryId) {
@@ -51,15 +54,7 @@ public class CryptoVote implements Parcelable {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getSubcategoryId() {
         return subcategoryId;
-    }
-
-    public void setSubcategoryId(String subcategoryId) {
-        this.subcategoryId = subcategoryId;
     }
 }
